@@ -1,10 +1,7 @@
-.navigation {
+.navigation, #navigation {
   background-color: #000;
 }
 
-.member-meta {
-  text-align: center;
-}
-#navigation {
-  background-color: #000;
-}
+.img-fluid#paddy-dciv{
+    max-width: 115%;
+  }
