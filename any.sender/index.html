@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>any.sender</title>
+
+    <!--code highlighting-->
+
     <link
       href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap"
       rel="stylesheet"
@@ -35,25 +38,18 @@
           document.addEventListener("DOMContentLoaded", fn);
         }
       }
-      function addRipple() {
-        mdc.ripple.MDCRipple.attachTo(
-          document.querySelector(".pisa-header-button")
-        );
-        mdc.ripple.MDCRipple.attachTo(
-          document.querySelector(".pisa-footer-button")
-        );
-        mdc.ripple.MDCRipple.attachTo(
-          document.querySelector(".docs-header-button")
-        );
-        mdc.ripple.MDCRipple.attachTo(
-          document.querySelector(".docs-footer-button")
-        );
-      }
-
-      docReady(addRipple);
+      docReady();
     </script>
     <link rel="icon" href="./img/redRing.png" type="image/x-icon" />
     <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark-reasonable.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
   </head>
   <body>
     <header class="header">
@@ -80,7 +76,9 @@
             </a>
           </div>
           <div class="slack-container">
-            <a href="https://join.slack.com/t/pisaresearch/shared_invite/enQtOTMzODczMTU1MTY4LTAxMmY2NTM1MzEzNjI0MjIwYjg4YjZmYjYyNzBhNTU1NjVkMTQ3MDQ0N2ZjNmVkMjNlOGFmMjAxMGVjMGYyNmM">
+            <a
+              href="https://join.slack.com/t/pisaresearch/shared_invite/enQtOTMzODczMTU1MTY4LTAxMmY2NTM1MzEzNjI0MjIwYjg4YjZmYjYyNzBhNTU1NjVkMTQ3MDQ0N2ZjNmVkMjNlOGFmMjAxMGVjMGYyNmM"
+            >
               <img
                 width="64"
                 height="64"
@@ -90,7 +88,7 @@
             </a>
           </div>
         </div>
-        <div class="main-title-container">
+        <div class="main-title-container-left">
           <h1 class="main-title">
             an<span class="last-y">y</span
             ><span class="title-dot">.</span>sender
@@ -147,11 +145,72 @@
               </h3>
               <p class="reason-text">
                 any.sender deals with nonce ordering, reorgs and stuck
-                transactions so users dont have to. Just set a deadline and let us
-                do the rest.
+                transactions so users dont have to. Just set a deadline and let
+                us do the rest.
               </p>
             </li>
           </ul>
+        </div>
+      </section>
+      <section class="getting-started">
+        <div class="container">
+          <h2 class="getting-started-title">
+            Getting started
+          </h2>
+          <div class="code-header">
+            1. Install the client
+          </div>
+          <div class="example-code-item">
+            <pre class="pre"><code class="bash code">
+npm i @any-sender/client
+                        </code></pre>
+          </div>
+          <div class="code-header">
+            2. Use your favourite wallet to send funds to the relay contract.
+          </div>
+          <div class="example-code-item">
+            <pre class="pre"><code class="typescript code">
+// send the funds
+const tx = await userWallet.sendTransaction({ 
+    to: relayContractAddress, 
+    value: parseEther("1") 
+});
+await tx.wait(12);
+
+// check the balancef
+const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+const balance = await client.balance(userWallet.address); // 1 ether
+                    </code></pre>
+          </div>
+          <div class="code-header">
+            3. Create a transaction and relay it with any.sender.
+          </div>
+          <div class="example-code-item">
+            <pre class="pre"><code class="typescript code">
+import { AnySenderClient } from "@any-sender/client";
+const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+
+// create a relay transaction
+const deadlineBlockNumber = (await provider.getBlockNumber()) + 405;
+const relayTx = {
+    from: userWallet.address,
+    to: echoContractAddress,
+    gas: 100000,
+    deadlineBlockNumber,
+    data,
+    refund: parseEther("0.01").toString(),
+    relayContractAddress
+};
+
+// authorise
+const id = AnySenderClient.relayTxId(relayTx);
+const signature = await userWallet.signMessage(arrayify(id));
+const signedTx = { ...relayTx, signature };
+
+// relay!
+const signedReceipt = await client.relay(signedTx);
+            </code></pre>
+          </div>
         </div>
       </section>
     </main>
