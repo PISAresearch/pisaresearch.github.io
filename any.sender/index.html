@@ -177,7 +177,7 @@ const tx = await userWallet.sendTransaction({
 });
 await tx.wait(12);
 
-// check the balancef
+// check the balance
 const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
 const balance = await client.balance(userWallet.address); // 1 ether
                     </code></pre>
