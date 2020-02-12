@@ -112,14 +112,14 @@ html {
 
 body {
   overflow-x: hidden;
-  background-color: white;
+  background-color: #0a070f;
   font-family: "Helvetica", "monospace";
 }
 
 .header {
   position: relative;
   padding-bottom: 220px;
-  background-color: #1a1b20;
+  background-color: #0a070f;
 
   background-image: url("./img/leandro-ruiz-ElJtHdaVwvg-unsplash.jpg");
   background-size: cover;
@@ -146,6 +146,11 @@ body {
 .title-dot {
   color: #fa5432;
 }
+
+.main {
+    background-color: white;
+}
+
 .main-title {
   font-family: "Roboto Mono", monospace;
   max-width: 350px;
@@ -234,8 +239,22 @@ body {
   }
 }
 
+.why-para {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 60px;
+  line-height: 34px;
+}
+
+@media (max-width: 768px) {
+    .why-para {
+        font-size: 22px;
+        line-height: 30px;
+    }
+}
+
 .why {
-  padding: 140px 0 140px;
+  padding: 80px 0 140px;
 }
 @media (max-width: 768px) {
   .why {
@@ -244,10 +263,10 @@ body {
 }
 
 .why-title {
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   font-weight: 700;
   font-size: 28px;
-  color: #2c1c08;
+  color: black;
   line-height: 38px;
   text-align: center;
 }
@@ -305,8 +324,7 @@ footer {
 
 .footer {
   position: relative;
-  /* background-color: #0d124a; */
-  background-color: #222226;
+  background-color: #0a070f;
 }
 @media (max-width: 990px) {
   .footer {
@@ -339,7 +357,7 @@ footer {
 }
 
 .getting-started {
-  background: #1a1b20;
+  background: #0a070f;
   padding: 120px 0 50px 0;
 }
 
@@ -373,9 +391,14 @@ footer {
   -webkit-overflow-scrolling: touch;
 }
 
+@media (max-width: 450px) {
+  .pre {
+    padding: 10px 25px;
+  }
+}
+
 .code {
   padding: 0 !important;
-  background: none !important;
   font-size: 13px;
   line-height: 24px;
 }
