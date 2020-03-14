@@ -140,6 +140,14 @@ body {
 }
 
 .github-container {
+  padding-left: 14px;
+}
+
+.medium-container {
+  padding-left: 14px;
+}
+
+.twitter-container {
   padding-left: 18px;
 }
 
@@ -148,7 +156,7 @@ body {
 }
 
 .main {
-    background-color: white;
+  background-color: white;
 }
 
 .main-title {
@@ -247,10 +255,10 @@ body {
 }
 
 @media (max-width: 768px) {
-    .why-para {
-        font-size: 22px;
-        line-height: 30px;
-    }
+  .why-para {
+    font-size: 22px;
+    line-height: 30px;
+  }
 }
 
 .why {
